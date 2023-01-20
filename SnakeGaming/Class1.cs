@@ -101,10 +101,61 @@
                     occupiedPositions.Remove(tail);
                     break;
                 case Direction.Down:
+                    // If at top row, collision with wall:
+                    if (head.row > rows-1)
+                    {
+                        collision = true;
+                        return;
+                    }
+                    // Heads new position is added to body:
+                    newHead = new Position(
+                    head.row +1,
+                    head.col 
+                    );
+                    body.Enqueue(newHead);
+                    occupiedPositions.Add(newHead, true);
+                    // Remove tail:
+                    tail = body.Dequeue();
+                    clearPosition = tail;
+                    occupiedPositions.Remove(tail);
                     break;
                 case Direction.Left:
+                    // If at top row, collision with wall:
+                    if (head.col < 2)
+                    {
+                        collision = true;
+                        return;
+                    }
+                    // Heads new position is added to body:
+                    newHead = new Position(
+                    head.row - 1,
+                    head.col
+                    );
+                    body.Enqueue(newHead);
+                    occupiedPositions.Add(newHead, true);
+                    // Remove tail:
+                    tail = body.Dequeue();
+                    clearPosition = tail;
+                    occupiedPositions.Remove(tail);
                     break;
                 case Direction.Right:
+                    // If at top row, collision with wall:
+                    if (head.row < 2)
+                    {
+                        collision = true;
+                        return;
+                    }
+                    // Heads new position is added to body:
+                    newHead = new Position(
+                    head.row - 1,
+                    head.col
+                    );
+                    body.Enqueue(newHead);
+                    occupiedPositions.Add(newHead, true);
+                    // Remove tail:
+                    tail = body.Dequeue();
+                    clearPosition = tail;
+                    occupiedPositions.Remove(tail);
                     break;
                 default:
                     break;
