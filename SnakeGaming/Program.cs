@@ -38,6 +38,7 @@ namespace SnakeConsole
                     int sleepTime = (int)((TARGET_FRAME_TIME - elapsedTime) * 1000);
                     System.Threading.Thread.Sleep(sleepTime);
                 }
+                //if (collision = true){break;}
             }
             Console.ReadLine();
         }

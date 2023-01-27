@@ -57,6 +57,9 @@
             Position newHead = new Position(trow, tcol);
             body.Enqueue(newHead);
             occupiedPositions.Add(newHead, true);
+            body.Enqueue(newHead);
+            body.Enqueue(newHead);
+            body.Enqueue(newHead);
             direction = Direction.None; // Don't move until .. .
             collision = false;
         }
@@ -81,7 +84,7 @@
             // Hvilken retning?
             switch (direction)
             {
-                case Direction.Up:
+                case Direction.Up:                                  //Up
                     // If at top row, collision with wall:
                     if (head.row < 2)
                     {
@@ -100,9 +103,9 @@
                     clearPosition = tail;
                     occupiedPositions.Remove(tail);
                     break;
-                case Direction.Down:
+                case Direction.Down:                                //Ned
                     // If at top row, collision with wall:
-                    if (head.row > rows-1)
+                    if (head.row > rows-4)
                     {
                         collision = true;
                         return;
@@ -119,17 +122,17 @@
                     clearPosition = tail;
                     occupiedPositions.Remove(tail);
                     break;
-                case Direction.Left:
+                case Direction.Left:                            //Venstre
                     // If at top row, collision with wall:
                     if (head.col < 2)
                     {
                         collision = true;
                         return;
-                    }
+                    }                                           
                     // Heads new position is added to body:
                     newHead = new Position(
-                    head.row - 1,
-                    head.col
+                    head.row,
+                    head.col -1
                     );
                     body.Enqueue(newHead);
                     occupiedPositions.Add(newHead, true);
@@ -137,21 +140,25 @@
                     tail = body.Dequeue();
                     clearPosition = tail;
                     occupiedPositions.Remove(tail);
-                    break;
-                case Direction.Right:
-                    // If at top row, collision with wall:
-                    if (head.row < 2)
+                    break;                                     
+                case Direction.Right:                           //højre
+                    // If at right row, collision with wall:
+                    if (head.col > cols-4)
                     {
                         collision = true;
                         return;
-                    }
+                    } 
                     // Heads new position is added to body:
                     newHead = new Position(
-                    head.row - 1,
-                    head.col
+                    head.row,
+                    head.col +1
                     );
                     body.Enqueue(newHead);
                     occupiedPositions.Add(newHead, true);
+                    if (IsCollision(Position position))
+                    {
+                        collision= true;
+                    }
                     // Remove tail:
                     tail = body.Dequeue();
                     clearPosition = tail;
