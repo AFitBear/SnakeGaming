@@ -45,7 +45,7 @@
         Direction direction = Direction.None;
         private Random random;
         public bool collision;
-   
+
         public Snake(int rows, int cols)
         {
             this.rows = rows;
@@ -62,8 +62,8 @@
                     {
                         Console.SetCursorPosition(col, row);
                         Console.Write('-');
-                        Position vegg= new Position(col, row);
-                        occupiedPositions.Add(vegg,true);
+                        Position vegg = new Position(col, row);
+                        occupiedPositions.Add(vegg, true);
                     }
                 }
             }
@@ -102,11 +102,12 @@
             {
                 case Direction.Up:                                  //Up
                     // If at top row, collision with wall:
-                    if (head.row < 2)
-                    {
-                        collision = true;
-                        return;
-                    }
+                        if (IsCollision(head))
+                        {
+                        Console.WriteLine("Hello");
+                            collision = true;
+                            return;
+                        }
                     // Heads new position is added to body:
                     newHead = new Position(
                     head.row - 1,
@@ -121,15 +122,15 @@
                     break;
                 case Direction.Down:                                //Ned
                     // If at top row, collision with wall:
-                    if (head.row > rows-4)
+                    if (head.row > rows - 4)
                     {
                         collision = true;
                         return;
                     }
                     // Heads new position is added to body:
                     newHead = new Position(
-                    head.row +1,
-                    head.col 
+                    head.row + 1,
+                    head.col
                     );
                     body.Enqueue(newHead);
                     occupiedPositions.Add(newHead, true);
@@ -144,11 +145,11 @@
                     {
                         collision = true;
                         return;
-                    }                                           
+                    }
                     // Heads new position is added to body:
                     newHead = new Position(
                     head.row,
-                    head.col -1
+                    head.col - 1
                     );
                     body.Enqueue(newHead);
                     occupiedPositions.Add(newHead, true);
@@ -156,18 +157,18 @@
                     tail = body.Dequeue();
                     clearPosition = tail;
                     occupiedPositions.Remove(tail);
-                    break;                                     
+                    break;
                 case Direction.Right:                           //højre
                     // If at right row, collision with wall:
-                    if (head.col > cols-4)
+                    if (head.col > cols - 4)
                     {
                         collision = true;
                         return;
-                    } 
+                    }
                     // Heads new position is added to body:
                     newHead = new Position(
                     head.row,
-                    head.col +1
+                    head.col + 1
                     );
                     body.Enqueue(newHead);
                     occupiedPositions.Add(newHead, true);
@@ -219,10 +220,18 @@
                     break;
             }
         }
-        public bool IsCollision(Position position)
+        public bool IsCollision(Position newghiHead)
         {
             // Undersøger om position allerede er optaget:
-            return occupiedPositions.ContainsKey(position);
+            //return occupiedPositions.ContainsKey(position); // lærens kode, gider ikke virke. jeg laver min egen
+
+            return occupiedPositions.ContainsKey(newghiHead);
+
+            /*if (occupiedPositions.ContainsKey(newHead))
+            {
+                return true;
+            }
+            return false;*/
         }
     }
 }
