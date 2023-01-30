@@ -22,7 +22,7 @@
         }
         public void Render()
         {
-            for (int row = 0; row < rows - 1; row++)
+            /*for (int row = 0; row < rows - 1; row++)
             {
                 for (int col = 0; col < cols - 1; col++)
                 {
@@ -30,10 +30,11 @@
                     {
                         Console.SetCursorPosition(col, row);
                         Console.Write('-');
+
                     }
                 }
-            }
-        }
+            }*/
+        } //useless
     }
     internal class Snake
     {
@@ -44,6 +45,7 @@
         Direction direction = Direction.None;
         private Random random;
         public bool collision;
+   
         public Snake(int rows, int cols)
         {
             this.rows = rows;
@@ -51,6 +53,20 @@
             random = new Random();
             body = new Queue<Position>();
             occupiedPositions = new Dictionary<Position, bool>();
+            //Laver en border
+            for (int row = 0; row < rows - 1; row++)
+            {
+                for (int col = 0; col < cols - 1; col++)
+                {
+                    if (row == 0 || col == 0 || row == rows - 2 || col == cols - 2)
+                    {
+                        Console.SetCursorPosition(col, row);
+                        Console.Write('-');
+                        Position vegg= new Position(col, row);
+                        occupiedPositions.Add(vegg,true);
+                    }
+                }
+            }
             int trow, tcol;
             trow = rows / 2 + random.Next(-3, 3);
             tcol = cols / 2 + random.Next(-7, 7);
@@ -155,10 +171,10 @@
                     );
                     body.Enqueue(newHead);
                     occupiedPositions.Add(newHead, true);
-                    if (IsCollision(Position position))
+                    /*if (IsCollision(Position position))
                     {
                         collision= true;
-                    }
+                    }*/
                     // Remove tail:
                     tail = body.Dequeue();
                     clearPosition = tail;
