@@ -10,6 +10,7 @@ namespace SnakeConsole
     {
         static void Main(string[] args)
         {
+            
             int rows = Console.WindowHeight;
             int cols = Console.WindowWidth;
             // typ: 30 x 120 (rows x columns)
@@ -38,9 +39,9 @@ namespace SnakeConsole
                     int sleepTime = (int)((TARGET_FRAME_TIME - elapsedTime) * 1000);
                     System.Threading.Thread.Sleep(sleepTime);
                 }
-                //if (collision = true){break;}
+                if (snake.collision == true){break;}
             }
-            Console.ReadLine();
+            Console.WriteLine("You Died");
         }
     }
 }

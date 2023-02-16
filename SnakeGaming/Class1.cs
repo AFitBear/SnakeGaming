@@ -63,7 +63,7 @@
                         Console.SetCursorPosition(col, row);
                         Console.Write('-');
                         Position vegg = new Position(col, row);
-                        occupiedPositions.Add(vegg, true);
+                        occupiedPositions.Add(vegg, true);          //Makes the wall position an occupied position
                     }
                 }
             }
@@ -101,13 +101,18 @@
             switch (direction)
             {
                 case Direction.Up:                                  //Up
-                    // If at top row, collision with wall:
-                        if (IsCollision(head))
-                        {
-                        Console.WriteLine("Hello");
-                            collision = true;
-                            return;
-                        }
+                                                                    // If at top row, collision with wall:
+                    /* if (IsCollision(head))
+                     {
+                         Console.WriteLine("Hello");
+                         collision = true;
+                         return;
+                     }*/
+                    if (head.row < 2)
+                    {
+                        collision = true;
+                        return;
+                    }
                     // Heads new position is added to body:
                     newHead = new Position(
                     head.row - 1,
@@ -220,12 +225,10 @@
                     break;
             }
         }
-        public bool IsCollision(Position newghiHead)
+        public bool IsCollision(Position posiss)
         {
             // Undersøger om position allerede er optaget:
-            //return occupiedPositions.ContainsKey(position); // lærens kode, gider ikke virke. jeg laver min egen
-
-            return occupiedPositions.ContainsKey(newghiHead);
+            return occupiedPositions.ContainsKey(posiss); // lærens kode, gider ikke virke. jeg laver min egen
 
             /*if (occupiedPositions.ContainsKey(newHead))
             {
